@@ -46,8 +46,7 @@ nav {
 }
 
 nav a {
-    color: #016270; /* ← 統一 */
-    text-shadow: 0 2px 3px rgba(0,0,0,0.0);
+    color: #016270;
     text-decoration: none;
     font-weight: 700;
     font-size: 14px;
@@ -111,7 +110,7 @@ nav a:hover::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.30); /* ← 明るくした */
+    background: rgba(0,0,0,0.30);
     z-index: 1;
 }
 
@@ -123,14 +122,14 @@ nav a:hover::after {
 }
 
 .hero h1 {
-    font-size: 60px;
+    font-size: 55px;
     margin: 0;
     letter-spacing: 1px;
     text-shadow: 0 4px 10px rgba(0,0,0,0.7);
 }
 
 .hero p {
-    font-size: 30px;
+    font-size: 25px;
     margin-top: 10px;
     text-shadow: 0 4px 10px rgba(0,0,0,0.7);
 }
@@ -142,16 +141,24 @@ section {
     margin: 0 auto;
 }
 
+/* 見出し専用デザイン（初心者に優しいお店です！） */
+.h2-beginner {
+    font-size: 31px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #016270;
+    background: #e8f9f3;
+}
+
 /* ===== 見出し ===== */
 h2 {
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 700;
     margin-bottom: 40px;
     text-align: center;
     color: #333;
 }
-
-
 
 /* ===== カード ===== */
 .cards {
@@ -164,19 +171,13 @@ h2 {
     background: #ffffff;
     border-radius: 14px;
     padding: 28px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* ← 軽くした */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     transition: 0.25s ease;
 }
 
 .card:hover {
     transform: translateY(-4px);
     box-shadow: 0 4px 14px rgba(0,0,0,0.10);
-}
-
-.card h3 {
-    font-size: 22px;
-    margin-bottom: 14px;
-    color: #6faacb;
 }
 
 /* ===== 画像カード ===== */
@@ -196,29 +197,23 @@ h2 {
     padding: 24px;
 }
 
-/* ===== ミント背景（安心・雰囲気） ===== */
-#安心 {
-    background: #dff7f2;
-    border-radius: 14px;
-    padding: 30px 20px;
-}
-
+/* ===== 雰囲気 ===== */
 #雰囲気 {
     background: #dff7f2;
     border-radius: 14px;
     padding: 30px 20px;
 }
 
-/* ===== アクセス（雑誌風2カラム） ===== */
+/* ===== アクセス ===== */
 .access-wrap {
     display: flex;
     align-items: flex-start;
-    gap: 50px;
+    gap: 55px;
     margin-top: 40px;
 }
 
 .access-text {
-    width: 45%;
+    width: 55%;
     font-size: 18px;
     line-height: 1.9;
 }
@@ -229,12 +224,6 @@ h2 {
     gap: 8px;
     margin: 0 0 14px;
     font-size: 18px;
-}
-
-.access-text p .icon {
-    font-size: 20px;
-    width: 24px;
-    text-align: center;
 }
 
 .access-map {
@@ -277,71 +266,17 @@ h2 {
     text-decoration: none;
     font-weight: 700;
     font-size: 17px;
+    border: 2px solid #6faacb;
     transition: 0.25s ease;
 }
 
 .mail-btn:hover {
     background: #fff;
-    color: #5a94b5;
+    color: #6faacb;
+    border-color: #6faacb;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* ← これがB案の追加 */
 }
-
-/* ===== ランキングテーブル ===== */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-  margin-top: 20px;
-}
-
-th, td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-}
-
-th {
-  background: #27ae60;
-  color: white;
-}
-
-tr:nth-child(even) {
-  background: #f9f9f9;
-}
-
-.first {
-  background: #ffeaa7;
-  font-weight: bold;
-}
-
-/* ===== ランキングテーブル ===== */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-  margin-top: 20px;
-}
-
-th, td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-}
-
-th {
-  background: #27ae60;
-  color: white;
-}
-
-tr:nth-child(even) {
-  background: #f9f9f9;
-}
-
-.first {
-  background: #ffeaa7;
-  font-weight: bold;
-}
-
 
 /* ===== フッター ===== */
 footer {
@@ -351,6 +286,47 @@ footer {
     color: white;
     margin-top: 60px;
 }
+
+/* ===== 安心ポイント：丸アイコン（2段組み） ===== */
+.card.point-item {
+    position: relative;
+    padding-top: 70px;
+    text-align: left;
+}
+
+.point-badge {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #7cc8a1;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    line-height: 1.1;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.point-badge .label {
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.point-badge .num {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+
 </style>
 </head>
 
@@ -381,41 +357,95 @@ footer {
     </div>
 </div>
 
+<!-- 紹介＋安心（統合済み） -->
 <section id="紹介">
-    <h2>初心者に優しいお店です！</h2>
-    <p style="text-align:center;">「麻雀って難しそう…」「やっぱりイメージが…」そんな不安を感じる方でも、安心して来ていただけるお店です。<br>
-明るく清潔な店内で、初めての方でも自分のペースでゆっくり楽しめます。<br>
-ルールがわからなくても心配いりません。<br>
-“覚えたい”“楽しみたい”という気持ちに寄り添いながら、スタッフが丁寧にサポートします。<br>
-やさしい雰囲気の中で、気軽に麻雀を始めてみませんか。</p> 
-</section>
+    <h2 class="h2-beginner">初心者に優しいお店です！</h2>
 
-<section id="安心">
-    <h2>６つの安心ポイント</h2>
-    <div class="cards">
-        <div class="card">
-            <h3>１.ノーレート雀荘です</h3>
-            <p>お金を賭けないので、初心者でも気軽に楽しめます。</p>
-        </div>
-        <div class="card">
-            <h3>２.スタッフが丁寧に説明</h3>
-            <p>ルールがわからなくても、スタッフが優しくサポートします。</p>
-        </div>
-        <div class="card">
-            <h3>３.初心者卓あり</h3>
-            <p>同じレベルの方とゆっくり遊べる初心者卓をご用意。</p>
-        </div>
-        <div class="card">
-            <h3>４.ゆっくり進行OK</h3>
-            <p>焦って打つ必要はありません、自分のペースで楽しめます。</p>
-        </div>
-        <div class="card">
-            <h3>５.点数計算できなくてもOK</h3>
-            <p>点数計算が不安だったり、できなくても大丈夫！スタッフがサポートします！</p>
-        </div>
-        <div class="card">
-            <h3>６.全卓禁煙</h3>
-            <p>たばこが苦手の方も安心して遊べます。<br>＊喫煙室をご用意しています。</p>
+<!-- 双葉アイコンを中央に配置 -->
+    <div style="text-align:center; margin-bottom:0px;">
+        <img src="https://ringo1033.github.io/test001/Copilot_20260510_160708.png" alt="双葉アイコン" style="width:40px; height:auto;">
+    </div>
+
+    <p style="text-align:center;">
+        「麻雀って難しそう…」「役がわからない…」そんな不安を感じる方でも、安心して来ていただけるお店です。<br>
+        明るく清潔な店内で、初めての方でも自分のペースでゆっくり楽しめます。<br>
+        ルールがわからなくても心配いりません。<br>
+        “覚えたい”“楽しみたい”という気持ちに寄り添いながら、スタッフが丁寧にサポートします。<br>
+        やさしい雰囲気の中で、気軽に麻雀を始めてみませんか。
+    </p>
+
+    <!-- 安心ポイント（背景なし） -->
+    <div id="安心" style="margin-top:60px;">
+        <h2>６つの安心ポイント</h2>
+
+        <div class="cards">
+
+            <div class="card point-item">
+                <div class="point-badge">
+                    <span class="label">Point</span>
+                    <span class="num">1</span>
+                </div>
+                <div class="point-title">ノーレート雀荘です</div>
+                <div class="point-text">
+                    お金を賭けないので、初心者でも気軽に楽しめます。
+                </div>
+            </div>
+
+            <div class="card point-item">
+                <div class="point-badge">
+                    <span class="label">Point</span>
+                    <span class="num">2</span>
+                </div>
+                <div class="point-title">スタッフが丁寧に説明</div>
+                <div class="point-text">
+                    ルールがわからなくても、スタッフが優しくサポートします。
+                </div>
+            </div>
+
+            <div class="card point-item">
+                <div class="point-badge">
+                    <span class="label">Point</span>
+                    <span class="num">3</span>
+                </div>
+                <div class="point-title">初心者卓あり</div>
+                <div class="point-text">
+                    同じレベルの方とゆっくり遊べる初心者卓をご用意。
+                </div>
+            </div>
+
+            <div class="card point-item">
+                <div class="point-badge">
+                    <span class="label">Point</span>
+                    <span class="num">4</span>
+                </div>
+                <div class="point-title">ゆっくり進行OK</div>
+                <div class="point-text">
+                    焦って打つ必要はありません、自分のペースで楽しめます。
+                </div>
+            </div>
+
+            <div class="card point-item">
+                <div class="point-badge">
+                    <span class="label">Point</span>
+                    <span class="num">5</span>
+                </div>
+                <div class="point-title">点数計算できなくてもOK</div>
+                <div class="point-text">
+                    点数計算が不安だったり、できなくても大丈夫！スタッフがサポートします！
+                </div>
+            </div>
+
+            <div class="card point-item">
+                <div class="point-badge">
+                    <span class="label">Point</span>
+                    <span class="num">6</span>
+                </div>
+                <div class="point-title">全卓禁煙</div>
+                <div class="point-text">
+                    たばこが苦手の方も安心して遊べます。<br>＊喫煙室をご用意しています。
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
@@ -423,9 +453,9 @@ footer {
 <section id="流れ">
     <h2>ご来店の流れ</h2>
     <p style="text-align:center;">1.受付で「初めてです」とお伝えください<br>
-2.ルール説明を行います<br>
-3.初心者卓へご案内<br>
-4.楽しくプレイ！</p> 
+    2.ルール説明を行います<br>
+    3.初心者卓へご案内<br>
+    4.楽しくプレイ！</p> 
 </section>
 
 <section id="雰囲気">
@@ -447,18 +477,22 @@ footer {
 </section>
 
 <section id="料金">
-    <h2>料金</h2>
+    <h2>料金システム</h2>
     <div class="cards">
+
         <div class="card">
             <h3>1ゲーム</h3>
             <p>500円</p>
+        </div>
+
+        <div class="card">
             <h3>セット</h3>
             <p>1600円</p>
         </div>
+
     </div>
 </section>
 
-<!-- ★ここが修正ポイント -->
 <section id="ランキング">
 <h2>ランキング</h2>
 
@@ -478,16 +512,17 @@ footer {
 
 </section>
 
-
 <section id="アクセス">
     <h2>アクセス</h2>
 
     <div class="access-wrap">
 
         <div class="access-text">
-            <p><span class="icon">⏰</span><strong>営業時間：</strong>11時～23時</p>
-            <p><span class="icon">📅</span><strong>定休日：</strong>月・火</p>
             <p><span class="icon">📍</span><strong>住所：</strong>東京都板橋区大山町4-1</p>
+            <p><span class="icon">📞</span><strong>TEL：</strong>03-1234-5678</p>
+            <p><span class="icon">⏰</span><strong>営業時間：</strong>11：00～23：00</p>
+            <p><span class="icon">📅</span><strong>定休日：</strong>月・火</p>
+            <p><span class="icon">👣</span><strong>行き方：</strong>東武東上線「大山駅」○○口から徒歩1分！</p>
         </div>
 
         <div class="access-map">
@@ -500,11 +535,8 @@ footer {
     </div>
 </section>
 
-<!-- 問い合わせ -->
 <section id="問い合わせ">
-    <h2>
-        予約・問い合わせ
-    </h2>
+    <h2>予約・問い合わせ</h2>
     <p style="text-align:center;">予約・問い合わせはこちらから。</p>
     <p style="text-align:center;">
         <a class="mail-btn" href="mailto:example@example.com">メールはこちら</a>
@@ -514,44 +546,6 @@ footer {
 <footer>
     © 2026 麻雀 A&B
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script>
-const supabaseUrl = 'https://lfaldubbsvvndymeveok.supabase.co';
-const supabaseKey = 'sb_publishable_VERAJLcNy-2AobFmaaNDVQ_lc6Hcdzx'; // ←ここだけ入れ替え
 
-const client = supabase.createClient(supabaseUrl, supabaseKey);
-
-async function loadRanking() {
-  const { data, error } = await client
-    .from('rankings')
-    .select('*')
-    .order('total_score', { ascending: false });
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  const table = document.getElementById('ranking');
-  table.innerHTML = '';
-
-  data.forEach((row, index) => {
-    const cls = index === 0 ? 'first' : '';
-
-    table.innerHTML += `
-      <tr class="${cls}">
-        <td>${index + 1}</td>
-        <td>${row.name}</td>
-        <td>${row.games ?? 0}</td>
-        <td>${row.avg_rank ?? '-'}</td>
-        <td>${row.rank_detail ?? '0-0-0-0'}</td>
-        <td>${row.total_score ?? 0}</td>
-      </tr>
-    `;
-  });
-}
-
-loadRanking();
-</script>
 </body>
 </html>
