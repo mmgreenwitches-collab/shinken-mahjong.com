@@ -567,61 +567,83 @@ const supabaseKey = 'sb_publishable_VERAJLcNy-2AobFmaaNDVQ_lc6Hcdzx';
 const client = supabase.createClient(supabaseUrl, supabaseKey);
 
 // =====================
-// デイリー（昨日）TOP3
+// デイリーランキング
 // =====================
 async function loadDaily() {
 
+  const yesterday = getYesterday();
+
   const { data, error } = await client
     .from('games')
-    .select('score, players(name)')
-    .eq('play_date', getYesterday());
+    .select(`
+      score,
+      player_id,
+      players (
+        name
+      )
+    `)
+    .eq('play_date', yesterday);
 
-  if (error) {
-    console.error(error);
-    return;
-  }
+  console.log('daily data', data);
+  console.log('daily error', error);
+
+  if (error) return;
 
   renderRanking('daily-ranking', data, 3);
 }
 
 // =====================
-// 月間TOP5
+// 月間ランキング
 // =====================
 async function loadMonthly() {
 
+  const monthStart = getMonthStart();
+
   const { data, error } = await client
     .from('games')
-    .select('score, players(name)')
-    .gte('play_date', getMonthStart());
+    .select(`
+      score,
+      player_id,
+      players (
+        name
+      )
+    `)
+    .gte('play_date', monthStart);
 
-  if (error) {
-    console.error(error);
-    return;
-  }
+  console.log('monthly data', data);
+  console.log('monthly error', error);
+
+  if (error) return;
 
   renderRanking('monthly-ranking', data, 5);
 }
 
 // =====================
-// 集計して表示
+// ランキング描画
 // =====================
 function renderRanking(elementId, data, limit) {
 
   const table = document.getElementById(elementId);
+
   table.innerHTML = '';
 
-  const map = {};
+  const scoreMap = {};
 
   data.forEach(row => {
+
+    if (!row.players) return;
+
     const name = row.players.name;
-    map[name] = (map[name] || 0) + row.score;
+
+    scoreMap[name] = (scoreMap[name] || 0) + row.score;
   });
 
-  const sorted = Object.entries(map)
+  const sorted = Object.entries(scoreMap)
     .sort((a, b) => b[1] - a[1])
     .slice(0, limit);
 
   sorted.forEach((item, index) => {
+
     table.innerHTML += `
       <tr>
         <td>${index + 1}</td>
@@ -636,8 +658,11 @@ function renderRanking(elementId, data, limit) {
 // 昨日の日付
 // =====================
 function getYesterday() {
+
   const d = new Date();
+
   d.setDate(d.getDate() - 1);
+
   return d.toISOString().split('T')[0];
 }
 
@@ -645,14 +670,20 @@ function getYesterday() {
 // 月初
 // =====================
 function getMonthStart() {
+
   const d = new Date();
-  return new Date(d.getFullYear(), d.getMonth(), 1)
-    .toISOString().split('T')[0];
+
+  return new Date(
+    d.getFullYear(),
+    d.getMonth(),
+    1
+  ).toISOString().split('T')[0];
 }
 
 // 実行
 loadDaily();
 loadMonthly();
+
 </script>
     
     <section id="アクセス">
