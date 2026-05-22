@@ -582,7 +582,7 @@ async function loadDaily() {
         name
       )
     `)
-   // .eq('play_date', yesterday);
+    .eq('play_date', yesterday);
 
   console.log('daily data', data);
   console.log('daily error', error);
@@ -608,7 +608,7 @@ async function loadMonthly() {
         name
       )
     `)
-   // .gte('play_date', monthStart);
+    .gte('play_date', monthStart);
 
   console.log('monthly data', data);
   console.log('monthly error', error);
