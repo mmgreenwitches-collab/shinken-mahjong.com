@@ -521,74 +521,105 @@ footer {
     </div>
 </section>
 
-<section id="ranking">
-  <h2>昨日のデイリーランキング</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>順位</th>
-        <th>名前</th>
-        <th>総スコア</th>
-      </tr>
-    </thead>
-    <tbody id="daily-ranking"></tbody>
-  </table>
+<!-- ===================== -->
+<!-- ランキング -->
+<!-- ===================== -->
+<section id="ランキング">
+<h2>ランキング</h2>
 
-  <h2 style="margin-top:40px;">月間ランキング</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>順位</th>
-        <th>名前</th>
-        <th>総スコア</th>
-      </tr>
-    </thead>
-    <tbody id="monthly-ranking"></tbody>
-  </table>
+<!-- デイリー -->
+<h3>昨日のデイリーランキング（TOP3）</h3>
+<table>
+  <thead>
+    <tr>
+      <th>順位</th>
+      <th>名前</th>
+      <th>総スコア</th>
+    </tr>
+  </thead>
+  <tbody id="daily-ranking"></tbody>
+</table>
+
+<!-- 月間 -->
+<h3 style="margin-top:40px;">月間ランキング（TOP5）</h3>
+<table>
+  <thead>
+    <tr>
+      <th>順位</th>
+      <th>名前</th>
+      <th>総スコア</th>
+    </tr>
+  </thead>
+  <tbody id="monthly-ranking"></tbody>
+</table>
+
 </section>
-    
+
+<!-- ===================== -->
+<!-- Supabase JS -->
+<!-- ===================== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
 <script>
-const client = supabase.createClient(
-  'https://lfaldubbsvvndymeveok.supabase.co',
-  'sb_publishable_VERAJLcNy-2AobFmaaNDVQ_lc6Hcdzx'
-);
+const supabaseUrl = 'https://lfaldubbsvvndymeveok.supabase.co';
+const supabaseKey = 'sb_publishable_VERAJLcNy-2AobFmaaNDVQ_lc6Hcdzx';
 
-// デイリー
+const client = supabase.createClient(supabaseUrl, supabaseKey);
+
+// =====================
+// デイリー（昨日）TOP3
+// =====================
 async function loadDaily() {
-  const { data, error } = await client
-    .from('games')
-    .select('score, play_date, players(name)')
-    .eq('play_date', getYesterday())
-    .order('score', { ascending: false });
 
-  renderTable('daily-ranking', data);
-}
-
-// 月間
-async function loadMonthly() {
   const { data, error } = await client
     .from('games')
     .select('score, players(name)')
-    .gte('play_date', getMonthStart())
-    .order('score', { ascending: false });
+    .eq('play_date', getYesterday());
 
-  renderTable('monthly-ranking', data);
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  renderRanking('daily-ranking', data, 3);
 }
 
-// 表描画
-function renderTable(id, data) {
-  const table = document.getElementById(id);
+// =====================
+// 月間TOP5
+// =====================
+async function loadMonthly() {
+
+  const { data, error } = await client
+    .from('games')
+    .select('score, players(name)')
+    .gte('play_date', getMonthStart());
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  renderRanking('monthly-ranking', data, 5);
+}
+
+// =====================
+// 集計して表示
+// =====================
+function renderRanking(elementId, data, limit) {
+
+  const table = document.getElementById(elementId);
   table.innerHTML = '';
 
-  const grouped = {};
+  const map = {};
 
   data.forEach(row => {
     const name = row.players.name;
-    grouped[name] = (grouped[name] || 0) + row.score;
+    map[name] = (map[name] || 0) + row.score;
   });
 
-  const sorted = Object.entries(grouped)
-    .sort((a,b) => b[1] - a[1]);
+  const sorted = Object.entries(map)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit);
 
   sorted.forEach((item, index) => {
     table.innerHTML += `
@@ -601,24 +632,29 @@ function renderTable(id, data) {
   });
 }
 
-// 昨日
+// =====================
+// 昨日の日付
+// =====================
 function getYesterday() {
   const d = new Date();
   d.setDate(d.getDate() - 1);
   return d.toISOString().split('T')[0];
 }
 
+// =====================
 // 月初
+// =====================
 function getMonthStart() {
   const d = new Date();
   return new Date(d.getFullYear(), d.getMonth(), 1)
     .toISOString().split('T')[0];
 }
 
+// 実行
 loadDaily();
 loadMonthly();
 </script>
-
+    
     <section id="アクセス">
     <h2>アクセス</h2>
 
