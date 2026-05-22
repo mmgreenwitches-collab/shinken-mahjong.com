@@ -547,7 +547,79 @@ footer {
   </table>
 </section>
     
-<section id="アクセス">
+<script>
+const client = supabase.createClient(
+  'https://lfaldubbsvvndymeveok.supabase.co',
+  'sb_publishable_VERAJLcNy-2AobFmaaNDVQ_lc6Hcdzx'
+);
+
+// デイリー
+async function loadDaily() {
+  const { data, error } = await client
+    .from('games')
+    .select('score, play_date, players(name)')
+    .eq('play_date', getYesterday())
+    .order('score', { ascending: false });
+
+  renderTable('daily-ranking', data);
+}
+
+// 月間
+async function loadMonthly() {
+  const { data, error } = await client
+    .from('games')
+    .select('score, players(name)')
+    .gte('play_date', getMonthStart())
+    .order('score', { ascending: false });
+
+  renderTable('monthly-ranking', data);
+}
+
+// 表描画
+function renderTable(id, data) {
+  const table = document.getElementById(id);
+  table.innerHTML = '';
+
+  const grouped = {};
+
+  data.forEach(row => {
+    const name = row.players.name;
+    grouped[name] = (grouped[name] || 0) + row.score;
+  });
+
+  const sorted = Object.entries(grouped)
+    .sort((a,b) => b[1] - a[1]);
+
+  sorted.forEach((item, index) => {
+    table.innerHTML += `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${item[0]}</td>
+        <td>${item[1]}</td>
+      </tr>
+    `;
+  });
+}
+
+// 昨日
+function getYesterday() {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  return d.toISOString().split('T')[0];
+}
+
+// 月初
+function getMonthStart() {
+  const d = new Date();
+  return new Date(d.getFullYear(), d.getMonth(), 1)
+    .toISOString().split('T')[0];
+}
+
+loadDaily();
+loadMonthly();
+</script>
+
+    <section id="アクセス">
     <h2>アクセス</h2>
 
     <div class="access-wrap">
