@@ -689,44 +689,5 @@ loadMonthly();
 <footer>
     © 2026 麻雀 A&B
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script>
-const supabaseUrl = 'https://lfaldubbsvvndymeveok.supabase.co';
-const supabaseKey = 'sb_publishable_VERAJLcNy-2AobFmaaNDVQ_lc6Hcdzx'; // ←ここだけ入れ替え
-
-const client = supabase.createClient(supabaseUrl, supabaseKey);
-
-async function loadRanking() {
-  const { data, error } = await client
-    .from('rankings')
-    .select('*')
-    .order('total_score', { ascending: false });
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  const table = document.getElementById('ranking');
-  table.innerHTML = '';
-
-  data.forEach((row, index) => {
-    const cls = index === 0 ? 'first' : '';
-
-    table.innerHTML += `
-      <tr class="${cls}">
-        <td>${index + 1}</td>
-        <td>${row.name}</td>
-        <td>${row.games ?? 0}</td>
-        <td>${row.avg_rank ?? '-'}</td>
-        <td>${row.rank_detail ?? '0-0-0-0'}</td>
-        <td>${row.total_score ?? 0}</td>
-      </tr>
-    `;
-  });
-}
-
-loadRanking();
-</script>
 </body>	
 </html>
