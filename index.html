@@ -1,609 +1,22 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ノーレート雀荘しん＆けん | 初心者歓迎 | 大山駅徒歩1分</title>
-
-<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&display=swap" rel="stylesheet">
-
-<style>
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: 'Noto Sans JP', sans-serif;
-    margin: 0;
-    background-color: #fafafa;
-    color: #2b2b2b;
-    line-height: 1.8;
-}
-
-/* ===== ナビ ===== */
-nav {
-    background: linear-gradient(to bottom,
-        rgba(223,247,242,0.99),
-        rgba(223,247,242,0.65)
-    );
-    backdrop-filter: blur(6px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-
-.logo img {
-    height: 50px;
-    width: auto;
-    display: block;
-}
-
-.menu {
-    display: flex;
-    gap: 30px;
-}
-
-nav a {
-    color: #016270;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 14px;
-    position: relative;
-    padding-bottom: 4px;
-}
-
-nav a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0%;
-    height: 2px;
-    background-color: #1d8796;
-    transition: width 0.25s ease;
-}
-
-nav a:hover::after {
-    width: 100%;
-}
-
-@media (min-width: 768px) {
-    nav {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
-
-    nav a {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 767px) {
-    nav {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .menu {
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 10px;
-    }
-}
-
-/* ===== ヒーロー ===== */
-.hero {
-    position: relative;
-    height: 55vh;
-    min-height: 380px;
-    background: url("https://ringo1033.github.io/test001/34165010_l.jpg") center/cover no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.30);
-    z-index: 1;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    color: white;
-}
-
-.hero h1 {
-    font-size: 55px;
-    margin: 0;
-    letter-spacing: 1px;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.7);
-}
-
-.hero p {
-    font-size: 25px;
-    margin-top: 10px;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.7);
-}
-
-/* ===== セクション ===== */
-section {
-    padding: 30px 20px;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-/* 見出し専用デザイン（初心者に優しいお店です！） */
-.h2-beginner {
-    font-size: 31px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #016270;
-    background: #e8f9f3;
-}
-
-/* ===== 見出し ===== */
-h2 {
-    font-size: 30px;
-    font-weight: 700;
-    margin-bottom: 40px;
-    text-align: center;
-    color: #333;
-}
-
-/* ===== カード ===== */
-.cards {
-    display: grid;
-    gap: 28px;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
-.card {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 28px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    transition: 0.25s ease;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 14px rgba(0,0,0,0.10);
-}
-
-/* ===== 画像カード ===== */
-.photo-card {
-    padding: 0;
-    overflow: hidden;
-}
-
-.photo-card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    display: block;
-}
-
-.photo-card .inner {
-    padding: 24px;
-}
-
-/* ===== 雰囲気 ===== */
-#雰囲気 {
-    background: #dff7f2;
-    border-radius: 14px;
-    padding: 30px 20px;
-}
-
-/* ===== アクセス ===== */
-.access-wrap {
-    display: flex;
-    align-items: flex-start;
-    gap: 55px;
-    margin-top: 40px;
-}
-
-.access-text {
-    width: 55%;
-    font-size: 18px;
-    line-height: 1.9;
-}
-
-.access-text p {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 0 0 14px;
-    font-size: 18px;
-}
-
-.access-map {
-    width: 55%;
-}
-
-@media (max-width: 768px) {
-    .access-wrap {
-        flex-direction: column;
-    }
-    .access-text, .access-map {
-        width: 100%;
-    }
-}
-
-/* ===== マップ ===== */
-.map-wrap {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-}
-
-.map-wrap iframe {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-/* ===== ボタン ===== */
-.mail-btn {
-    display: inline-block;
-    padding: 14px 32px;
-    background: #6faacb;
-    color: #fff;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 17px;
-    border: 2px solid #6faacb;
-    transition: 0.25s ease;
-}
-
-.mail-btn:hover {
-    background: #fff;
-    color: #6faacb;
-    border-color: #6faacb;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* ← これがB案の追加 */
-}
-
-/* ===== ランキングテーブル ===== */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-  margin-top: 20px;
-}
-
-th, td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-}
-
-th {
-  background: #27ae60;
-  color: white;
-}
-
-tr:nth-child(even) {
-  background: #f9f9f9;
-}
-
-.first {
-  background: #ffeaa7;
-  font-weight: bold;
-}
-
-/* ===== フッター ===== */
-footer {
-    text-align: center;
-    padding: 20px;
-    background: #6faacb;
-    color: white;
-    margin-top: 60px;
-}
-
-/* ===== 安心ポイント：丸アイコン（2段組み） ===== */
-.card.point-item {
-    position: relative;
-    padding-top: 70px;
-    text-align: left;
-}
-
-.point-badge {
-    position: absolute;
-    top: -35px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background-color: #7cc8a1;
-    color: #fff;
-    font-weight: 700;
-    font-size: 14px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    line-height: 1.1;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
-
-.point-badge .label {
-    font-size: 12px;
-    margin-bottom: 2px;
-}
-
-.point-badge .num {
-    font-size: 22px;
-    font-weight: 700;
-}
-
-
-</style>
-</head>
-
-<body>
-
-<!-- ナビ -->
-<nav>
-    <div class="logo">
-        <img src="https://ringo1033.github.io/test001/Copilot_20260503_231929.png" alt="ノーレート雀荘しん&けん ロゴ">
-    </div>
-    <div class="menu">
-        <a href="#紹介">当店の紹介</a>
-        <a href="#安心">安心ポイント</a>
-        <a href="#流れ">初めての流れ</a>
-        <a href="#雰囲気">当店の雰囲気</a>
-        <a href="#料金">料金システム</a>
-        <a href="#ランキング">ランキング</a>
-        <a href="#アクセス">アクセス</a>
-        <a href="#問い合わせ">予約・問い合わせ</a>
-    </div>
-</nav>
-
-<!-- ヒーロー -->
-<div class="hero">
-    <div class="hero-content">
-        <h1>しん＆けん</h1>
-        <p>🔰初心者歓迎・ノーレート雀荘<br>大山駅から徒歩1分でアクセス抜群！</p>
-    </div>
-</div>
-
-<!-- 紹介＋安心（統合済み） -->
-<section id="紹介">
-    <h2 class="h2-beginner">初心者に優しいお店です！</h2>
-
-<!-- 双葉アイコンを中央に配置 -->
-    <div style="text-align:center; margin-bottom:0px;">
-        <img src="https://ringo1033.github.io/test001/Copilot_20260510_160708.png" alt="双葉アイコン" style="width:40px; height:auto;">
-    </div>
-
-    <p style="text-align:center;">
-        「麻雀って難しそう…」「役がわからない…」そんな不安を感じる方でも、安心して来ていただけるお店です。<br>
-        明るく清潔な店内で、初めての方でも自分のペースでゆっくり楽しめます。<br>
-        ルールがわからなくても心配いりません。<br>
-        “覚えたい”“楽しみたい”という気持ちに寄り添いながら、スタッフが丁寧にサポートします。<br>
-        やさしい雰囲気の中で、気軽に麻雀を始めてみませんか。
-    </p>
-
-    <!-- 安心ポイント（背景なし） -->
-    <div id="安心" style="margin-top:60px;">
-        <h2>６つの安心ポイント</h2>
-
-        <div class="cards">
-
-            <div class="card point-item">
-                <div class="point-badge">
-                    <span class="label">Point</span>
-                    <span class="num">1</span>
-                </div>
-                <div class="point-title">ノーレート雀荘です</div>
-                <div class="point-text">
-                    お金を賭けないので、初心者でも気軽に楽しめます。
-                </div>
-            </div>
-
-            <div class="card point-item">
-                <div class="point-badge">
-                    <span class="label">Point</span>
-                    <span class="num">2</span>
-                </div>
-                <div class="point-title">スタッフが丁寧に説明</div>
-                <div class="point-text">
-                    ルールがわからなくても、スタッフが優しくサポートします。
-                </div>
-            </div>
-
-            <div class="card point-item">
-                <div class="point-badge">
-                    <span class="label">Point</span>
-                    <span class="num">3</span>
-                </div>
-                <div class="point-title">初心者卓あり</div>
-                <div class="point-text">
-                    同じレベルの方とゆっくり遊べる初心者卓をご用意。
-                </div>
-            </div>
-
-            <div class="card point-item">
-                <div class="point-badge">
-                    <span class="label">Point</span>
-                    <span class="num">4</span>
-                </div>
-                <div class="point-title">ゆっくり進行OK</div>
-                <div class="point-text">
-                    焦って打つ必要はありません、自分のペースで楽しめます。
-                </div>
-            </div>
-
-            <div class="card point-item">
-                <div class="point-badge">
-                    <span class="label">Point</span>
-                    <span class="num">5</span>
-                </div>
-                <div class="point-title">点数計算できなくてもOK</div>
-                <div class="point-text">
-                    点数計算が不安だったり、できなくても大丈夫！スタッフがサポートします！
-                </div>
-            </div>
-
-            <div class="card point-item">
-                <div class="point-badge">
-                    <span class="label">Point</span>
-                    <span class="num">6</span>
-                </div>
-                <div class="point-title">全卓禁煙</div>
-                <div class="point-text">
-                    たばこが苦手の方も安心して遊べます。<br>＊喫煙室をご用意しています。
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<section id="流れ">
-    <h2>ご来店の流れ</h2>
-    <p style="text-align:center;">1.受付で「初めてです」とお伝えください<br>
-    2.ルール説明を行います<br>
-    3.初心者卓へご案内<br>
-    4.楽しくプレイ！</p> 
-</section>
-
-<section id="雰囲気">
-    <h2>お店の雰囲気</h2>
-    <div class="cards">
-        <div class="card photo-card">
-            <img src="https://images.unsplash.com/photo-1599058917765-a780eda07a3e" alt="">
-            <div class="inner">
-                <p>明るく落ち着いた店内で、ゆったりと麻雀を楽しめます。</p>
-            </div>
-        </div>
-        <div class="card photo-card">
-            <img src="https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5" alt="">
-            <div class="inner">
-                <p>清潔感のある空間で、初めての方でも安心。</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="料金">
-    <h2>料金システム</h2>
-    <div class="cards">
-
-        <div class="card">
-            <h3>1ゲーム</h3>
-            <p>500円</p>
-        </div>
-
-        <div class="card">
-            <h3>セット</h3>
-            <p>1600円</p>
-        </div>
-
-    </div>
-</section>
-
-<!-- ===================== -->
-<!-- ランキング -->
-<!-- ===================== -->
-<section id="ランキング">
-<h2>ランキング</h2>
-
-<!-- デイリー -->
-<h3>デイリーランキング（TOP3）</h3>
-<table>
-  <thead>
-    <tr>
-      <th>順位</th>
-      <th>名前</th>
-      <th>総スコア</th>
-    </tr>
-  </thead>
-  <tbody id="daily-ranking"></tbody>
-</table>
-
-<!-- 月間 -->
-<h3 style="margin-top:40px;">月間ランキング（TOP5）</h3>
-<table>
-  <thead>
-    <tr>
-      <th>順位</th>
-      <th>名前</th>
-      <th>総スコア</th>
-    </tr>
-  </thead>
-  <tbody id="monthly-ranking"></tbody>
-</table>
-
-</section>
-
-<section id="mypage">
-<h2>個人成績</h2>
-
-<div class="card">
-
-  <div style="margin-bottom:15px;">
-    <input type="text" id="login-id" placeholder="ログインID"
-      style="padding:10px; width:220px;">
-  </div>
-
-  <div style="margin-bottom:15px;">
-    <input type="password" id="password" placeholder="パスワード"
-      style="padding:10px; width:220px;">
-  </div>
-
-  <button onclick="login()"
-    style="
-      padding:10px 25px;
-      border:none;
-      background:#27ae60;
-      color:white;
-      border-radius:8px;
-      cursor:pointer;
-    ">
-    ログイン
-  </button>
-
-  <div id="my-result" style="margin-top:30px;"></div>
-
-</div>
-</section>
-    
 <!-- ===================== -->
 <!-- Supabase JS -->
 <!-- ===================== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 <script>
+
 const supabaseUrl = 'https://lfaldubbsvvndymeveok.supabase.co';
 const supabaseKey = 'sb_publishable_VERAJLcNy-2AobFmaaNDVQ_lc6Hcdzx';
 
-const client = supabase.createClient(supabaseUrl, supabaseKey);
+const client = supabase.createClient(
+  supabaseUrl,
+  supabaseKey
+);
 
 // =====================
 // デイリーランキング
 // =====================
 async function loadDaily() {
-
-  const yesterday = getYesterday();
 
   const { data, error } = await client
     .from('games')
@@ -613,15 +26,20 @@ async function loadDaily() {
       players (
         name
       )
-    `)
-    .eq('play_date', yesterday);
+    `);
 
-  console.log('daily data', data);
-  console.log('daily error', error);
+  console.log('daily', data);
 
-  if (error) return;
+  if (error) {
+    console.log(error);
+    return;
+  }
 
-  renderRanking('daily-ranking', data, 3);
+  renderRanking(
+    'daily-ranking',
+    data,
+    3
+  );
 }
 
 // =====================
@@ -629,8 +47,6 @@ async function loadDaily() {
 // =====================
 async function loadMonthly() {
 
-  const monthStart = getMonthStart();
-
   const { data, error } = await client
     .from('games')
     .select(`
@@ -639,23 +55,33 @@ async function loadMonthly() {
       players (
         name
       )
-    `)
-    .gte('play_date', monthStart);
+    `);
 
-  console.log('monthly data', data);
-  console.log('monthly error', error);
+  console.log('monthly', data);
 
-  if (error) return;
+  if (error) {
+    console.log(error);
+    return;
+  }
 
-  renderRanking('monthly-ranking', data, 5);
+  renderRanking(
+    'monthly-ranking',
+    data,
+    5
+  );
 }
 
 // =====================
 // ランキング描画
 // =====================
-function renderRanking(elementId, data, limit) {
+function renderRanking(
+  elementId,
+  data,
+  limit
+) {
 
-  const table = document.getElementById(elementId);
+  const table =
+    document.getElementById(elementId);
 
   table.innerHTML = '';
 
@@ -667,7 +93,9 @@ function renderRanking(elementId, data, limit) {
 
     const name = row.players.name;
 
-    scoreMap[name] = (scoreMap[name] || 0) + row.score;
+    scoreMap[name] =
+      (scoreMap[name] || 0)
+      + row.score;
   });
 
   const sorted = Object.entries(scoreMap)
@@ -687,117 +115,95 @@ function renderRanking(elementId, data, limit) {
 }
 
 // =====================
-// 昨日の日付
-// =====================
-function getYesterday() {
-
-  const d = new Date();
-
-  d.setDate(d.getDate() - 1);
-
-  return d.toISOString().split('T')[0];
-}
-
-// =====================
-// 月初
-// =====================
-function getMonthStart() {
-
-  const d = new Date();
-
-  return new Date(
-    d.getFullYear(),
-    d.getMonth(),
-    1
-  ).toISOString().split('T')[0];
-}
-
-// 実行
-loadDaily();
-loadMonthly();
-
-<script>
-
-// =====================
 // ログイン処理
 // =====================
 async function login() {
 
-  const loginId = document.getElementById('login-id').value;
-  const password = document.getElementById('password').value;
+  const loginId =
+    document.getElementById('login-id').value;
 
-  // プレイヤー取得
-  const { data: player, error } = await client
-    .from('players')
-    .select('*')
-    .eq('login_id', loginId)
-    .eq('password', password)
-    .single();
+  const password =
+    document.getElementById('password').value;
+
+  const { data: player, error } =
+    await client
+      .from('players')
+      .select('*')
+      .eq('login_id', loginId)
+      .eq('password', password)
+      .single();
+
+  console.log(player);
+  console.log(error);
 
   if (error || !player) {
 
     alert('ログイン失敗');
 
-    console.log(error);
-
     return;
   }
-
-  console.log('ログイン成功', player);
 
   loadMyPage(player);
 }
 
 // =====================
-// 個人成績表示
+// 個人成績
 // =====================
 async function loadMyPage(player) {
 
-  const { data, error } = await client
-    .from('games')
-    .select('*')
-    .eq('player_id', player.id);
+  const { data, error } =
+    await client
+      .from('games')
+      .select('*')
+      .eq('player_id', player.id);
 
   if (error) {
-
     console.log(error);
-
     return;
   }
 
-  // 対局数
   const games = data.length;
 
-  // 総スコア
-  const totalScore = data.reduce((sum, row) => {
-    return sum + row.score;
-  }, 0);
+  const totalScore =
+    data.reduce((sum, row) => {
+      return sum + row.score;
+    }, 0);
 
-  // 平均順位
   const avgRank = (
-    data.reduce((sum, row) => sum + row.rank, 0) / games
+    data.reduce((sum, row) => {
+      return sum + row.rank;
+    }, 0) / games
   ).toFixed(2);
 
-  // 成績
-  const rank1 = data.filter(x => x.rank === 1).length;
-  const rank2 = data.filter(x => x.rank === 2).length;
-  const rank3 = data.filter(x => x.rank === 3).length;
-  const rank4 = data.filter(x => x.rank === 4).length;
+  const rank1 =
+    data.filter(x => x.rank === 1).length;
 
-  // 全員ランキング取得
-  const { data: allGames } = await client
-    .from('games')
-    .select(`
-      score,
-      rank,
-      player_id,
-      players!inner(name)
-    `);
+  const rank2 =
+    data.filter(x => x.rank === 2).length;
 
-  // 集計
+  const rank3 =
+    data.filter(x => x.rank === 3).length;
+
+  const rank4 =
+    data.filter(x => x.rank === 4).length;
+
+  // 全員ランキング
+  const { data: allGames } =
+    await client
+      .from('games')
+      .select(`
+        score,
+        player_id,
+        players (
+          name
+        )
+      `);
+
   const map = {};
 
   allGames.forEach(row => {
+
+    if (!row.players) return;
 
     const name = row.players.name;
 
@@ -812,16 +218,19 @@ async function loadMyPage(player) {
     map[row.player_id].total += row.score;
   });
 
-  // ソート
-  const ranking = Object.entries(map)
-    .sort((a, b) => b[1].total - a[1].total);
+  const ranking =
+    Object.entries(map)
+      .sort((a, b) => {
+        return b[1].total - a[1].total;
+      });
 
-  // 順位取得
   const myRank =
-    ranking.findIndex(x => x[0] === player.id) + 1;
+    ranking.findIndex(x => {
+      return x[0] === player.id;
+    }) + 1;
 
-  // 表示
-  document.getElementById('my-result').innerHTML = `
+  document.getElementById('my-result')
+    .innerHTML = `
 
     <table>
       <thead>
@@ -846,47 +255,11 @@ async function loadMyPage(player) {
         </tr>
       </tbody>
     </table>
-
   `;
 }
 
+// 実行
+loadDaily();
+loadMonthly();
+
 </script>
-    
-</script>
-    
-    <section id="アクセス">
-    <h2>アクセス</h2>
-
-    <div class="access-wrap">
-
-        <div class="access-text">
-            <p><span class="icon">📍</span><strong>住所：</strong>東京都板橋区大山町4-1</p>
-            <p><span class="icon">📞</span><strong>TEL：</strong>03-1234-5678</p>
-            <p><span class="icon">⏰</span><strong>営業時間：</strong>11：00～23：00</p>
-            <p><span class="icon">📅</span><strong>定休日：</strong>月・火</p>
-            <p><span class="icon">👣</span><strong>行き方：</strong>東武東上線「大山駅」○○口から徒歩1分！</p>
-        </div>
-
-        <div class="access-map">
-            <div class="map-wrap">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3238.0911756847217!2d139.70228369999998!3d35.7485637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601892b9ecd74167%3A0xc451c8ba77fc6c05!2z5aSn5bGx6aeF!5e0!3m2!1sja!2sjp!4v1777204486672!5m2!1sja!2sjp"
-                loading="lazy"></iframe>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<section id="問い合わせ">
-    <h2>予約・問い合わせ</h2>
-    <p style="text-align:center;">予約・問い合わせはこちらから。</p>
-    <p style="text-align:center;">
-        <a class="mail-btn" href="mailto:example@example.com">メールはこちら</a>
-    </p>
-</section>
-
-<footer>
-    © 2026 麻雀 A&B
-</footer>
-</body>	
-</html>
