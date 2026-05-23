@@ -555,6 +555,38 @@ footer {
 
 </section>
 
+<section id="mypage">
+<h2>個人成績</h2>
+
+<div class="card">
+
+  <div style="margin-bottom:15px;">
+    <input type="text" id="login-id" placeholder="ログインID"
+      style="padding:10px; width:220px;">
+  </div>
+
+  <div style="margin-bottom:15px;">
+    <input type="password" id="password" placeholder="パスワード"
+      style="padding:10px; width:220px;">
+  </div>
+
+  <button onclick="login()"
+    style="
+      padding:10px 25px;
+      border:none;
+      background:#27ae60;
+      color:white;
+      border-radius:8px;
+      cursor:pointer;
+    ">
+    ログイン
+  </button>
+
+  <div id="my-result" style="margin-top:30px;"></div>
+
+</div>
+</section>
+    
 <!-- ===================== -->
 <!-- Supabase JS -->
 <!-- ===================== -->
@@ -684,6 +716,142 @@ function getMonthStart() {
 loadDaily();
 loadMonthly();
 
+<script>
+
+// =====================
+// ログイン処理
+// =====================
+async function login() {
+
+  const loginId = document.getElementById('login-id').value;
+  const password = document.getElementById('password').value;
+
+  // プレイヤー取得
+  const { data: player, error } = await client
+    .from('players')
+    .select('*')
+    .eq('login_id', loginId)
+    .eq('password', password)
+    .single();
+
+  if (error || !player) {
+
+    alert('ログイン失敗');
+
+    console.log(error);
+
+    return;
+  }
+
+  console.log('ログイン成功', player);
+
+  loadMyPage(player);
+}
+
+// =====================
+// 個人成績表示
+// =====================
+async function loadMyPage(player) {
+
+  const { data, error } = await client
+    .from('games')
+    .select('*')
+    .eq('player_id', player.id);
+
+  if (error) {
+
+    console.log(error);
+
+    return;
+  }
+
+  // 対局数
+  const games = data.length;
+
+  // 総スコア
+  const totalScore = data.reduce((sum, row) => {
+    return sum + row.score;
+  }, 0);
+
+  // 平均順位
+  const avgRank = (
+    data.reduce((sum, row) => sum + row.rank, 0) / games
+  ).toFixed(2);
+
+  // 成績
+  const rank1 = data.filter(x => x.rank === 1).length;
+  const rank2 = data.filter(x => x.rank === 2).length;
+  const rank3 = data.filter(x => x.rank === 3).length;
+  const rank4 = data.filter(x => x.rank === 4).length;
+
+  // 全員ランキング取得
+  const { data: allGames } = await client
+    .from('games')
+    .select(`
+      score,
+      rank,
+      player_id,
+      players!inner(name)
+    `);
+
+  // 集計
+  const map = {};
+
+  allGames.forEach(row => {
+
+    const name = row.players.name;
+
+    if (!map[row.player_id]) {
+
+      map[row.player_id] = {
+        name: name,
+        total: 0
+      };
+    }
+
+    map[row.player_id].total += row.score;
+  });
+
+  // ソート
+  const ranking = Object.entries(map)
+    .sort((a, b) => b[1].total - a[1].total);
+
+  // 順位取得
+  const myRank =
+    ranking.findIndex(x => x[0] === player.id) + 1;
+
+  // 表示
+  document.getElementById('my-result').innerHTML = `
+
+    <table>
+      <thead>
+        <tr>
+          <th>順位</th>
+          <th>名前</th>
+          <th>対局数</th>
+          <th>平均順位</th>
+          <th>成績</th>
+          <th>総スコア</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>${myRank}</td>
+          <td>${player.name}</td>
+          <td>${games}</td>
+          <td>${avgRank}</td>
+          <td>${rank1}-${rank2}-${rank3}-${rank4}</td>
+          <td>${totalScore}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  `;
+}
+
+</script>
+    
 </script>
     
     <section id="アクセス">
